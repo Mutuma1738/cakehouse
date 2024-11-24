@@ -1,0 +1,46 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+    <!-- flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>Product List</title>
+</head>
+<body>
+    <header>
+        <h1>Our Cakes</h1>
+    </header>
+    <div class="container">
+        <h2>Classics</h2>
+        <div class="product-grid">
+            {% for product in classics %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                <h3>{{ product.name }}</h3>
+                <p>${{ product.base_price }}</p>
+                <a href="{% url 'order_cake' product.id %}">Order Now</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Specials</h2>
+        <div class="product-grid">
+            {% for product in specials %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                <h3>{{ product.name }}</h3>
+                <p>${{ product.base_price }}</p>
+                <a href="{% url 'order_cake' product.id %}">Order Now</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

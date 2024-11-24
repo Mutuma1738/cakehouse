@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+    
+    <!-- flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <title>Order Form</title>
+</head>
+<body>
+    <header>
+        Customize Your Cake
+    </header>
+    <div class="container">
+        <h2>{{ product.name }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Cake size -->
+            <label for="id_cake_size_kg">Weight:</label>
+            <select name="cake_size_kg" id="id_cake_size_kg" required>
+                <option value="" disabled selected>Select Size</option>
+                <option value="1.0">1KG</option>
+                <option value="1.5">1.5KG</option>
+                <option value="2.0">2KG</option>
+            </select>
+            
+            <!-- Occasion -->
+            <p>
+                <label for="id_occasion">Occasion:</label>
+                {{ form.occasion }}
+            </p>
+
+            <!-- Preferred Colors -->
+            <p>
+                <label for="id_preferred_colors">Preferred colors:</label>
+                {{ form.preferred_colors }}
+            </p>
+
+            <!-- Toppings -->
+            <div class="form-group">
+                <label for="id_toppings">Toppings:</label>
+                {{ form.toppings }}
+            </div>
+
+            <!-- Delivery Date -->
+            <p>
+                <label for="id_delivery_date">Pick up / Delivery Date and Time:</label>
+                <input type="text" id="delivery_date" name="delivery_date" required>
+            </p>
+            <p id="price">Price: {{ product.price_1kg }}</p>
+            <button type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+
+    <!-- Include flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Link to your custom JS file -->
+    <script src="{% static 'orders/js/delivery_datePicker.js' %}"></script>
+    <script src="{% static 'orders/js/price.js' %}"></Script>
+</body>
+</html>

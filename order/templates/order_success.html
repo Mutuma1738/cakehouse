@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'orders/css/styles.css' %}">
+    <title>Order Success</title>
+</head>
+<body>
+    <header>
+        Order Successful
+    </header>
+    <div class="container">
+        <h2>Thank you for your order, {{ order.user.username }}!</h2>
+        
+        <h3>Order Details:</h3>
+        <ul>
+            <li><strong>Product:</strong> {{ order.product.name }}</li>
+            <li><strong>Cake Size:</strong> {{ order.cake_size_kg }} kg</li>
+            <li><strong>Occasion:</strong> {{ order.occasion }}</li>
+            <li><strong>Preferred Colors:</strong> {{ order.preferred_colors }}</li>
+            <li><strong>Toppings:</strong>
+                <ul>
+                    {% for topping in order.toppings.all %}
+                        <li>{{ topping.name }}</li>
+                    {% empty %}
+                        <li>No toppings selected.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><strong>Delivery Date:</strong> {{ order.delivery_date }}</li>
+            <li><strong>Total Price:</strong> ${{ order.price }}</li>
+        </ul>
+
+        <a href="{% url 'product_list' %}">Go back to the product list</a>
+    </div>
+</body>
+</html>
